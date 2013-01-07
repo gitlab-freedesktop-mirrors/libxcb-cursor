@@ -6,6 +6,7 @@ includedir=@includedir@
 Name: XCB cursor library
 Description: XCB cursor utility library
 Version: @PACKAGE_VERSION@
-Requires: xcb xcb-render xcb-renderutil xcb-image
+Requires: xcb
+Requires.private: xcb-render xcb-renderutil xcb-image
 Libs: -L${libdir} -lxcb-cursor @LIBS@
 Cflags: -I${includedir}

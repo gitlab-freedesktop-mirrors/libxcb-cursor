@@ -8,8 +8,8 @@ xcbinclude_HEADERS = xcb_cursor.h
 AM_CFLAGS = $(CWARNFLAGS)
 
 libxcb_cursor_la_SOURCES = cursor.c shape_to_id.c load_cursor.c parse_cursor_file.c
-libxcb_cursor_la_CPPFLAGS = $(XCB_CFLAGS) $(XPROTO_CFLAGS)
-libxcb_cursor_la_LIBADD = $(XCB_LIBS) $(XPROTO_LIBS)
+libxcb_cursor_la_CPPFLAGS = $(XCB_CFLAGS) $(XPROTO_CFLAGS) $(XCB_RENDER_CFLAGS) $(XCB_RENDERUTIL_CFLAGS) $(XCB_IMAGE_CFLAGS)
+libxcb_cursor_la_LIBADD = $(XCB_LIBS) $(XPROTO_LIBS) $(XCB_RENDER_LIBS) $(XCB_RENDERUTIL_LIBS) $(XCB_IMAGE_LIBS)
 libxcb_cursor_la_LDFLAGS = -version-info 0:0:0 -no-undefined -export-symbols-regex '^xcb_cursor_'
 
 pkgconfig_DATA = xcb-cursor.pc

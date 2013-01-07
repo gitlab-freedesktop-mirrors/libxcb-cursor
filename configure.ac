@@ -19,6 +19,10 @@ XCB_UTIL_COMMON([1.4], [1.6])
 
 AM_MISSING_PROG([GPERF], [gperf])
 
+PKG_CHECK_MODULES(XCB_RENDER, xcb-render)
+PKG_CHECK_MODULES(XCB_RENDERUTIL, xcb-renderutil)
+PKG_CHECK_MODULES(XCB_IMAGE, xcb-image)
+
 AC_OUTPUT([Makefile
 	cursor/Makefile cursor/xcb-cursor.pc
 	xcb_util_intro
