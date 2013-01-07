@@ -127,13 +127,9 @@ int xcb_cursor_context_new(xcb_cursor_context_t **ctx, xcb_connection_t *conn) {
 }
 
 void xcb_cursor_context_free(xcb_cursor_context_t *c) {
-#define FREE(p) do { \
-    if (p) \
-        free(p); \
-} while (0)
-    FREE(c->rm[RM_XCURSOR_THEME]);
-    FREE(c->rm[RM_XCURSOR_SIZE]);
-    FREE(c->rm[RM_XFT_DPI]);
+    free(c->rm[RM_XCURSOR_THEME]);
+    free(c->rm[RM_XCURSOR_SIZE]);
+    free(c->rm[RM_XFT_DPI]);
     free(c->pf_reply);
     free(c);
 }
