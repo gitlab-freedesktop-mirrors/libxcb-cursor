@@ -77,5 +77,4 @@ core
 # For example, !report.pc overrides *.pc. See 'man gitignore'
 #
 xcb_util_intro
-ewmh/ewmh.c
-ewmh/xcb_ewmh.h
+cursor/shape_to_id.c
