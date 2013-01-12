@@ -28,6 +28,10 @@
 
 #include <xcb/xcb.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * @defgroup xcb__cursor_context_t XCB Cursor Functions
  *
@@ -107,5 +111,9 @@ void xcb_cursor_context_free(xcb_cursor_context_t *ctx);
 /**
  * @}
  */
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
