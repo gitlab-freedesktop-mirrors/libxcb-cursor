@@ -5,7 +5,7 @@
 
 typedef struct xcb_cursor_context_t xcb_cursor_context_t;
 
-int xcb_cursor_context_new(xcb_cursor_context_t **ctx, xcb_connection_t *conn);
+int xcb_cursor_context_new(xcb_connection_t *conn, xcb_cursor_context_t **ctx);
 
 xcb_cursor_t xcb_cursor_load_cursor(xcb_cursor_context_t *c, const char *name);
 

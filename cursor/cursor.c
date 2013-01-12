@@ -91,7 +91,7 @@ static uint32_t get_default_size(xcb_cursor_context_t *c, xcb_screen_t *screen) 
     return dim / 48;
 }
 
-int xcb_cursor_context_new(xcb_cursor_context_t **ctx, xcb_connection_t *conn) {
+int xcb_cursor_context_new(xcb_connection_t *conn, xcb_cursor_context_t **ctx) {
     xcb_cursor_context_t *c;
     xcb_screen_t *screen = NULL;
     xcb_get_property_cookie_t rm_cookie;
