@@ -87,14 +87,14 @@ int xcb_cursor_context_new(xcb_connection_t *conn, xcb_cursor_context_t **ctx);
  * Loads the specified cursor, either from the cursor theme or by falling back
  * to the X11 "cursor" font.
  *
- * @param c A cursor context, created with @ref xcb_cursor_context_new ()
+ * @param ctx A cursor context, created with @ref xcb_cursor_context_new ()
  * @param name The name of the cursor to load, e.g. "watch".
  * @returns The ID of the created cursor. When you are done using it, use
  * xcb_free_cursor. Calling @ref xcb_cursor_context_free () will NOT free the
  * created cursor.
  *
  */
-xcb_cursor_t xcb_cursor_load_cursor(xcb_cursor_context_t *c, const char *name);
+xcb_cursor_t xcb_cursor_load_cursor(xcb_cursor_context_t *ctx, const char *name);
 
 /**
  * Frees the @ref xcb_cursor_context_t.
