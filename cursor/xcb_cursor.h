@@ -42,13 +42,14 @@ extern "C" {
  * Here is how you would use these functions to change the X11 root window
  * cursor to "watch":
  * @code
- * int screen;
- * xcb_connection_t *conn = xcb_connect(NULL, &screen);
+ * int screennr;
+ * xcb_connection_t *conn = xcb_connect(NULL, &screennr);
  * if (conn == NULL || xcb_connection_has_error(conn))
  *     err(EXIT_FAILURE, "Could not connect to X11");
  *
+ * xcb_screen_t *screen = xcb_aux_get_screen(conn, screennr);
  * xcb_cursor_context_t *ctx;
- * if (xcb_cursor_context_new(conn, &ctx) < 0)
+ * if (xcb_cursor_context_new(conn, screen, &ctx) < 0)
  *     err(EXIT_FAILURE, "Could not initialize xcb-cursor");
  *
  * xcb_cursor_t cid = xcb_cursor_load_cursor(ctx, "watch");
@@ -79,13 +80,16 @@ typedef struct xcb_cursor_context_t xcb_cursor_context_t;
  *
  * @param conn A working XCB connection, which will be used until you destroy
  * the context with @ref xcb_cursor_context_free ().
+ * @param screen The xcb_screen_t to use (e.g. for getting the RESOURCE_MANAGER
+ * contents, for creating cursors on, for using the size as fallback when
+ * calculating the best cursor size).
  * @param ctx A pointer to an xcb_cursor_context_t* which will be modified to
  * refer to the newly created context.
  * @return 0 on success, a negative error code otherwise.
  *
  * @ingroup xcb_cursor_context_t
  */
-int xcb_cursor_context_new(xcb_connection_t *conn, xcb_cursor_context_t **ctx);
+int xcb_cursor_context_new(xcb_connection_t *conn, xcb_screen_t *screen, xcb_cursor_context_t **ctx);
 
 /**
  * Loads the specified cursor, either from the cursor theme or by falling back

@@ -116,9 +116,8 @@ static uint32_t get_default_size(xcb_cursor_context_t *c, xcb_screen_t *screen) 
     return dim / 48;
 }
 
-int xcb_cursor_context_new(xcb_connection_t *conn, xcb_cursor_context_t **ctx) {
+int xcb_cursor_context_new(xcb_connection_t *conn, xcb_screen_t *screen, xcb_cursor_context_t **ctx) {
     xcb_cursor_context_t *c;
-    xcb_screen_t *screen = NULL;
     xcb_get_property_cookie_t rm_cookie;
     xcb_get_property_reply_t *rm_reply;
     xcb_render_query_pict_formats_cookie_t pf_cookie;
@@ -128,13 +127,11 @@ int xcb_cursor_context_new(xcb_connection_t *conn, xcb_cursor_context_t **ctx) {
 
     c = *ctx;
     c->conn = conn;
-
-    // TODO: error checking?
-    screen = xcb_setup_roots_iterator(xcb_get_setup(conn)).data;
     c->root = screen->root;
+
     // XXX: Is it maybe necessary to ever use long_offset != 0?
     // XXX: proper length? xlib seems to use 100 MB o_O
-    rm_cookie = xcb_get_property(conn, 0, screen->root, XCB_ATOM_RESOURCE_MANAGER, XCB_ATOM_STRING, 0, 16 * 1024);
+    rm_cookie = xcb_get_property(conn, 0, c->root, XCB_ATOM_RESOURCE_MANAGER, XCB_ATOM_STRING, 0, 16 * 1024);
     pf_cookie = xcb_render_query_pict_formats(conn);
     c->cursor_font = xcb_generate_id(conn);
     xcb_open_font(conn, c->cursor_font, strlen("cursor"), "cursor");
