@@ -192,6 +192,7 @@ xcb_cursor_t xcb_cursor_load_cursor(xcb_cursor_context_t *c, const char *name) {
     xcb_gcontext_t gc = XCB_NONE;
     uint32_t last_width = 0;
     uint32_t last_height = 0;
+    xcb_cursor_t cid = XCB_NONE;
 
     if (c->render_present) {
         if (c->rm[RM_XCURSOR_THEME])
@@ -205,7 +206,7 @@ xcb_cursor_t xcb_cursor_load_cursor(xcb_cursor_context_t *c, const char *name) {
         if (core_char == -1)
             core_char = cursor_shape_to_id(name);
 
-        xcb_cursor_t cid = xcb_generate_id(c->conn);
+        cid = xcb_generate_id(c->conn);
         xcb_create_glyph_cursor(c->conn, cid, c->cursor_font, c->cursor_font, core_char, core_char + 1, 0, 0, 0, 65535, 65535, 65535);
         return cid;
     }
@@ -265,7 +266,7 @@ xcb_cursor_t xcb_cursor_load_cursor(xcb_cursor_context_t *c, const char *name) {
         /* non-animated cursor */
         return elements[0].cursor;
     } else {
-        xcb_cursor_t cid = xcb_generate_id(c->conn);
+        cid = xcb_generate_id(c->conn);
         xcb_render_create_anim_cursor (c->conn, cid, nimg, elements);
 
         for (int n = 0; n < nimg; n++) {
