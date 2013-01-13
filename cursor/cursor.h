@@ -29,6 +29,7 @@
 #ifndef CURSOR_H
 #define CURSOR_H
 
+#include <stdbool.h>
 #include <xcb/render.h>
 
 enum {
@@ -57,6 +58,8 @@ typedef struct xcb_cursor_context_t {
 
     const char *home;
     const char *path;
+
+    bool render_present;
 } xcb_cursor_context_t;
 
 /*

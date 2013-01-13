@@ -118,6 +118,7 @@ static uint32_t get_default_size(xcb_cursor_context_t *c, xcb_screen_t *screen) 
 
 int xcb_cursor_context_new(xcb_connection_t *conn, xcb_screen_t *screen, xcb_cursor_context_t **ctx) {
     xcb_cursor_context_t *c;
+    const xcb_query_extension_reply_t *ext;
     xcb_get_property_cookie_t rm_cookie;
     xcb_get_property_reply_t *rm_reply;
     xcb_render_query_pict_formats_cookie_t pf_cookie;
@@ -128,6 +129,9 @@ int xcb_cursor_context_new(xcb_connection_t *conn, xcb_screen_t *screen, xcb_cur
     c = *ctx;
     c->conn = conn;
     c->root = screen->root;
+
+    ext = xcb_get_extension_data(conn, &xcb_render_id);
+    c->render_present = (ext && ext->present);
 
     // XXX: Is it maybe necessary to ever use long_offset != 0?
     // XXX: proper length? xlib seems to use 100 MB o_O

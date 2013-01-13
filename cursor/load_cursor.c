@@ -193,11 +193,13 @@ xcb_cursor_t xcb_cursor_load_cursor(xcb_cursor_context_t *c, const char *name) {
     uint32_t last_width = 0;
     uint32_t last_height = 0;
 
-    if (c->rm[RM_XCURSOR_THEME])
-        fd = open_cursor_file(c, c->rm[RM_XCURSOR_THEME], name, &core_char);
+    if (c->render_present) {
+        if (c->rm[RM_XCURSOR_THEME])
+            fd = open_cursor_file(c, c->rm[RM_XCURSOR_THEME], name, &core_char);
 
-    if (fd == -1 && core_char == -1)
-        fd = open_cursor_file(c, "default", name, &core_char);
+        if (fd == -1 && core_char == -1)
+            fd = open_cursor_file(c, "default", name, &core_char);
+    }
 
     if (fd == -1 || core_char > -1) {
         if (core_char == -1)
