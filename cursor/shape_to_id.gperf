@@ -1,4 +1,4 @@
-struct shape_mapping { char *name; int number; };
+struct shape_mapping { const char *name; int number; };
 %%
 X_cursor,0
 arrow,1
