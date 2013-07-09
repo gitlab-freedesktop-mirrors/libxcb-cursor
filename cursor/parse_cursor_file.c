@@ -134,8 +134,10 @@ int parse_cursor_file(xcb_cursor_context_t *c, const int fd, xcint_image_t **ima
         chunk.version = le32toh(chunk.version);
         /* Sanity check, as libxcursor does it. */
         if (chunk.type != cf.tocs[n].type ||
-            chunk.subtype != cf.tocs[n].subtype)
+            chunk.subtype != cf.tocs[n].subtype) {
+            free(cf.tocs);
             return -EINVAL;
+        }
         read(fd, i, sizeof(xcint_image_t) - sizeof(uint32_t*)); // TODO: better type
         i->width = le32toh(i->width);
         i->height = le32toh(i->height);
