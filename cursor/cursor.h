@@ -47,6 +47,7 @@ typedef struct xcb_cursor_context_t {
 
     xcb_render_query_pict_formats_reply_t *pf_reply;
 
+    /* This is a pointer into pf_reply. */
     xcb_render_pictforminfo_t *pict_format;
 
     /* Specific values of the root window’s RESOURCE_MANAGER atom contents. */
