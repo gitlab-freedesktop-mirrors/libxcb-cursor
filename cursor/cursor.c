@@ -136,7 +136,8 @@ int xcb_cursor_context_new(xcb_connection_t *conn, xcb_screen_t *screen, xcb_cur
     // XXX: Is it maybe necessary to ever use long_offset != 0?
     // XXX: proper length? xlib seems to use 100 MB o_O
     rm_cookie = xcb_get_property(conn, 0, c->root, XCB_ATOM_RESOURCE_MANAGER, XCB_ATOM_STRING, 0, 16 * 1024);
-    pf_cookie = xcb_render_query_pict_formats(conn);
+    if (c->render_present)
+        pf_cookie = xcb_render_query_pict_formats(conn);
     c->cursor_font = xcb_generate_id(conn);
     xcb_open_font(conn, c->cursor_font, strlen("cursor"), "cursor");
 
@@ -144,8 +145,10 @@ int xcb_cursor_context_new(xcb_connection_t *conn, xcb_screen_t *screen, xcb_cur
     parse_resource_manager(c, rm_reply);
     free(rm_reply);
 
-    c->pf_reply = xcb_render_query_pict_formats_reply(conn, pf_cookie, NULL);
-    c->pict_format = xcb_render_util_find_standard_format(c->pf_reply, XCB_PICT_STANDARD_ARGB_32);
+    if (c->render_present) {
+        c->pf_reply = xcb_render_query_pict_formats_reply(conn, pf_cookie, NULL);
+        c->pict_format = xcb_render_util_find_standard_format(c->pf_reply, XCB_PICT_STANDARD_ARGB_32);
+    }
 
     c->size = get_default_size(c, screen);
 
