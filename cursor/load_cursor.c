@@ -194,6 +194,8 @@ xcb_cursor_t xcb_cursor_load_cursor(xcb_cursor_context_t *c, const char *name) {
     uint32_t last_height = 0;
     xcb_cursor_t cid = XCB_NONE;
 
+    // NB: if !render_present, fd will be -1 and thus the next if statement
+    // will trigger the fallback.
     if (c->render_present) {
         if (c->rm[RM_XCURSOR_THEME])
             fd = open_cursor_file(c, c->rm[RM_XCURSOR_THEME], name, &core_char);
