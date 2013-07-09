@@ -20,19 +20,18 @@ Discussion about XCB occurs on the XCB mailing list:
   <mailto:xcb at lists.freedesktop.org>
   <http://lists.freedesktop.org/mailman/listinfo/xcb>
 
-About XCB util-wm module
-========================
+About XCB util-cursor module
+============================
 
-XCB util-wm module provides the following libraries:
+XCB util-cursor module provides the following libraries:
 
-  - ewmh: Both client and window-manager helpers for EWMH.
-  - icccm: Both client and window-manager helpers for ICCCM.
+  - cursor: port of libxcursor
 
-You can obtain the latest development versions of XCB util-wm using
+You can obtain the latest development versions of XCB util-cursor using
 GIT. For anonymous checkouts, use:
 
-  git clone --recursive git://anongit.freedesktop.org/git/xcb/util-wm
+  git clone --recursive git://anongit.freedesktop.org/git/xcb/util-cursor
 
 For developers, use:
 
-  git clone --recursive git+ssh://git.freedesktop.org/git/xcb/util-wm
+  git clone --recursive git+ssh://git.freedesktop.org/git/xcb/util-cursor
