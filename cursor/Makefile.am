@@ -14,7 +14,7 @@ libxcb_cursor_la_LDFLAGS = -version-info 0:0:0 -no-undefined -export-symbols-reg
 
 pkgconfig_DATA = xcb-cursor.pc
 
-EXTRA_DIST = xcb-cursor.pc.in
+EXTRA_DIST = xcb-cursor.pc.in cursor.h shape_to_id.gperf
 
 # TODO: We cannot use --pic because then the gperf-generated code does not compile :-/
 GPERFFLAGS = --includes --struct-type --language=ANSI-C --switch=1
