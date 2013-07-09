@@ -146,6 +146,11 @@ int parse_cursor_file(xcb_cursor_context_t *c, const int fd, xcint_image_t **ima
         i->delay = le32toh(i->delay);
 
         /* Read the actual image data and convert it to host byte order */
+        if (((uint64_t)i->width) * i->height > UINT32_MAX) {
+            /* Catch integer overflows */
+            free(cf.tocs);
+            return -EINVAL;
+        }
         numpixels = i->width * i->height;
         i->pixels = malloc(numpixels * sizeof(uint32_t));
         read(fd, i->pixels, numpixels * sizeof(uint32_t));
