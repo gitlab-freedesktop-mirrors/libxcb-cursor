@@ -32,6 +32,8 @@
 #include <stdbool.h>
 #include <xcb/render.h>
 
+#include "xcb_cursor.h"
+
 enum {
     RM_XCURSOR_THEME = 0,
     RM_XCURSOR_SIZE,
@@ -61,7 +63,7 @@ typedef struct xcb_cursor_context_t {
     const char *path;
 
     bool render_present;
-} xcb_cursor_context_t;
+};
 
 /*
  * Cursor files start with a header.  The header
