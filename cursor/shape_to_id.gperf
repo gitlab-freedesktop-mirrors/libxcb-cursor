@@ -1,4 +1,5 @@
 struct shape_mapping { const char *name; int number; };
+const int cursor_shape_to_id(const char *name);
 %%
 X_cursor,0
 arrow,1
