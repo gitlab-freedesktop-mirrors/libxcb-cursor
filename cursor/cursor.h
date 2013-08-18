@@ -41,7 +41,7 @@ enum {
     RM_MAX,
 };
 
-typedef struct xcb_cursor_context_t {
+struct xcb_cursor_context_t {
     xcb_connection_t *conn;
     xcb_window_t root;
 
