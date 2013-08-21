@@ -253,7 +253,7 @@ xcb_cursor_t xcb_cursor_load_cursor(xcb_cursor_context_t *c, const char *name) {
         elements[n].cursor = xcb_generate_id(c->conn);
         elements[n].delay = i->delay;
 
-        xcb_render_create_cursor(c->conn, elements[n].cursor, pic, 11, 11);
+        xcb_render_create_cursor(c->conn, elements[n].cursor, pic, i->xhot, i->yhot);
 
         xcb_render_free_picture(c->conn, pic);
         xcb_image_destroy(img);
