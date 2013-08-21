@@ -1,3 +1,10 @@
+Release 0.1.0  (2013-08-21)
+=========================
+
+- Bugfix: Use xhot/yhot, don’t hardcode the value
+- Bugfix: fix build on FreeBSD/NetBSD
+- add COPYING file
+
 Release 0.0.99 (2013-07-09)
 ===========================
 
