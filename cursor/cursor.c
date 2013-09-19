@@ -73,12 +73,16 @@ static void parse_resource_manager(xcb_cursor_context_t *c, const xcb_get_proper
             sep++;
         /* strdup() may return NULL, which is interpreted later as the key not
          * being available. */
-        if (strcmp(line, "Xcursor.theme") == 0)
+        if (strcmp(line, "Xcursor.theme") == 0) {
+            free(c->rm[RM_XCURSOR_THEME]);
             c->rm[RM_XCURSOR_THEME] = strdup(sep);
-        else if (strcmp(line, "Xcursor.size") == 0)
+        } else if (strcmp(line, "Xcursor.size") == 0) {
+            free(c->rm[RM_XCURSOR_SIZE]);
             c->rm[RM_XCURSOR_SIZE] = strdup(sep);
-        else if (strcmp(line, "Xft.dpi") == 0)
+        } else if (strcmp(line, "Xft.dpi") == 0) {
+            free(c->rm[RM_XFT_DPI]);
             c->rm[RM_XFT_DPI] = strdup(sep);
+        }
     }
 
     free(rm);
