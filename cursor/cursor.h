@@ -29,7 +29,6 @@
 #ifndef CURSOR_H
 #define CURSOR_H
 
-#include <stdbool.h>
 #include <xcb/render.h>
 
 #include "xcb_cursor.h"
@@ -39,6 +38,14 @@ enum {
     RM_XCURSOR_SIZE,
     RM_XFT_DPI,
     RM_MAX,
+};
+
+enum render_version {
+    RV_NONE = 0,
+    /* RENDER's CreateCursor was added in RENDER 0.5 */
+    RV_CURSOR,
+    /* RENDER's CreateAnimCursor was added in RENDER 0.8 */
+    RV_ANIM_CURSOR
 };
 
 struct xcb_cursor_context_t {
@@ -62,7 +69,7 @@ struct xcb_cursor_context_t {
     const char *home;
     const char *path;
 
-    bool render_present;
+    enum render_version render_version;
 };
 
 /*

@@ -196,7 +196,7 @@ xcb_cursor_t xcb_cursor_load_cursor(xcb_cursor_context_t *c, const char *name) {
 
     // NB: if !render_present, fd will be -1 and thus the next if statement
     // will trigger the fallback.
-    if (c->render_present) {
+    if (c->render_version != RV_NONE) {
         if (c->rm[RM_XCURSOR_THEME])
             fd = open_cursor_file(c, c->rm[RM_XCURSOR_THEME], name, &core_char);
 
@@ -264,8 +264,8 @@ xcb_cursor_t xcb_cursor_load_cursor(xcb_cursor_context_t *c, const char *name) {
     xcb_free_gc(c->conn, gc);
     free(images);
 
-    if (nimg == 1) {
-        /* non-animated cursor */
+    if (nimg == 1 || c->render_version == RV_CURSOR) {
+        /* non-animated cursor or no support for animated cursors */
         return elements[0].cursor;
     } else {
         cid = xcb_generate_id(c->conn);

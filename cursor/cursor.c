@@ -126,6 +126,7 @@ int xcb_cursor_context_new(xcb_connection_t *conn, xcb_screen_t *screen, xcb_cur
     xcb_get_property_cookie_t rm_cookie;
     xcb_get_property_reply_t *rm_reply;
     xcb_render_query_pict_formats_cookie_t pf_cookie;
+    xcb_render_query_version_cookie_t ver_cookie;
 
     if ((*ctx = calloc(1, sizeof(struct xcb_cursor_context_t))) == NULL)
         return -errno;
@@ -133,15 +134,17 @@ int xcb_cursor_context_new(xcb_connection_t *conn, xcb_screen_t *screen, xcb_cur
     c = *ctx;
     c->conn = conn;
     c->root = screen->root;
+    c->render_version = RV_NONE;
 
     ext = xcb_get_extension_data(conn, &xcb_render_id);
-    c->render_present = (ext && ext->present);
 
     // XXX: Is it maybe necessary to ever use long_offset != 0?
     // XXX: proper length? xlib seems to use 100 MB o_O
     rm_cookie = xcb_get_property(conn, 0, c->root, XCB_ATOM_RESOURCE_MANAGER, XCB_ATOM_STRING, 0, 16 * 1024);
-    if (c->render_present)
+    if (ext && ext->present) {
+        ver_cookie = xcb_render_query_version(conn, XCB_RENDER_MAJOR_VERSION, XCB_RENDER_MINOR_VERSION);
         pf_cookie = xcb_render_query_pict_formats(conn);
+    }
     c->cursor_font = xcb_generate_id(conn);
     xcb_open_font(conn, c->cursor_font, strlen("cursor"), "cursor");
 
@@ -149,7 +152,15 @@ int xcb_cursor_context_new(xcb_connection_t *conn, xcb_screen_t *screen, xcb_cur
     parse_resource_manager(c, rm_reply);
     free(rm_reply);
 
-    if (c->render_present) {
+    if (ext && ext->present) {
+        xcb_render_query_version_reply_t *reply = xcb_render_query_version_reply(conn, ver_cookie, NULL);
+
+        if (reply && (reply->major_version >= 1 || reply->minor_version >= 8))
+            c->render_version = RV_ANIM_CURSOR;
+        else if (reply && (reply->major_version >= 1 || reply->minor_version >= 5))
+            c->render_version = RV_CURSOR;
+        free(reply);
+
         c->pf_reply = xcb_render_query_pict_formats_reply(conn, pf_cookie, NULL);
         c->pict_format = xcb_render_util_find_standard_format(c->pf_reply, XCB_PICT_STANDARD_ARGB_32);
     }
