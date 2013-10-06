@@ -19,7 +19,8 @@ XCB_UTIL_COMMON([1.4], [1.6])
 
 AM_MISSING_PROG([GPERF], [gperf])
 
-AC_CHECK_HEADERS([endian.h sys/endian.h], [break])
+AC_CHECK_HEADERS([endian.h sys/endian.h sys/byteorder.h], [break])
+AC_CHECK_FUNCS([le32toh])
 
 PKG_CHECK_MODULES(XCB_RENDER, xcb-render)
 PKG_CHECK_MODULES(XCB_RENDERUTIL, xcb-renderutil)
