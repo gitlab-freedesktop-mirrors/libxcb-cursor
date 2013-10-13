@@ -26,7 +26,10 @@ shape_to_id.c: shape_to_id.gperf
 	elif $(GPERF) --version >/dev/null 2>&1; then \
 	  rm $@t; \
 	  exit 1; \
-	else \
+	elif test -f $@; then \
 	  rm $@t; \
 	  touch $@; \
+	else \
+	  rm $@t; \
+	  exit 1; \
 	fi
