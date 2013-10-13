@@ -21,7 +21,7 @@ GPERFFLAGS = --includes --struct-type --language=ANSI-C --switch=1
 CLEANFILES = shape_to_id.c
 
 shape_to_id.c: shape_to_id.gperf
-	if $(GPERF) $(GPERFFLAGS) shape_to_id.gperf >$@t; then \
+	$(AM_V_GEN)if $(GPERF) $(GPERFFLAGS) shape_to_id.gperf >$@t; then \
 	  mv $@t $@; \
 	elif $(GPERF) --version >/dev/null 2>&1; then \
 	  rm $@t; \
