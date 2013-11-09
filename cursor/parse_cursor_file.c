@@ -138,7 +138,7 @@ int parse_cursor_file(xcb_cursor_context_t *c, const int fd, xcint_image_t **ima
     for (int n = 0; n < cf.header.ntoc; n++) {
         xcint_chunk_header_t chunk;
         /* for convenience */
-        xcint_image_t *i = &((*images)[n]);
+        xcint_image_t *i = &((*images)[cnt]);
         uint32_t numpixels = 0;
         uint32_t *p = NULL;
 
