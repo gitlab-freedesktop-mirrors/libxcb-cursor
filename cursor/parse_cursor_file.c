@@ -48,9 +48,9 @@
 # ifndef HAVE_LE32TOH
 #  define le32toh(x) LE_32(x)
 # endif
-#elif defined(HAVE_COREFOUNDATION_COREFOUNDATION_H)
-#include <CoreFoundation/CoreFoundation.h>
-#define le32toh(x) CFSwapInt32LittleToHost(x)
+#elif defined(HAVE_LIBKERN_OSBYTEORDER_H)
+#include <libkern/OSByteOrder.h>
+#define le32toh(x) OSSwapLittleToHostInt32(x)
 #endif
 
 #include <xcb/xcb.h>
