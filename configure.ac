@@ -26,6 +26,14 @@ PKG_CHECK_MODULES(XCB_RENDER, xcb-render)
 PKG_CHECK_MODULES(XCB_RENDERUTIL, xcb-renderutil)
 PKG_CHECK_MODULES(XCB_IMAGE, xcb-image)
 
+DEF_CURSORPATH="~/.icons:/usr/share/icons:/usr/share/pixmaps:/usr/X11R6/lib/X11/icons"
+AC_ARG_WITH(cursorpath,
+	AS_HELP_STRING([--with-cursorpath=<paths>],
+		[Set default search path for cursors]),
+	[XCURSORPATH="$withval"],
+	[XCURSORPATH="$DEF_CURSORPATH"])
+AC_DEFINE_UNQUOTED([XCURSORPATH], ["$XCURSORPATH"])
+
 AC_OUTPUT([Makefile
 	cursor/Makefile cursor/xcb-cursor.pc
 	xcb_util_intro
