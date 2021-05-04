@@ -91,7 +91,6 @@ _XcursorThemeInherits (const char *full)
             if (!strncmp (line, "Inherits", 8))
             {
                 char    *l = line + 8;
-                char    *r;
                 while (*l == ' ') l++;
                 if (*l != '=') continue;
                 l++;
@@ -99,7 +98,7 @@ _XcursorThemeInherits (const char *full)
                 result = malloc (strlen (l) + 1);
                 if (result)
                 {
-                    r = result;
+                    char *r = result;
                     while (*l)
                     {
                         while (XcursorSep(*l) || XcursorWhite (*l)) l++;
