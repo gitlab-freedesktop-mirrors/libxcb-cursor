@@ -34,7 +34,8 @@ AC_ARG_WITH(cursorpath,
 	[XCURSORPATH="$DEF_CURSORPATH"])
 AC_DEFINE_UNQUOTED([XCURSORPATH], ["$XCURSORPATH"])
 
-AC_OUTPUT([Makefile
+AC_CONFIG_FILES([Makefile
 	cursor/Makefile cursor/xcb-cursor.pc
 	xcb_util_intro
 	])
+AC_OUTPUT
